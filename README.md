@@ -11,9 +11,7 @@ cp envs/example.tfvars envs/<your_env_name>.tfvars
 ```
 
 ```txt
-switch_name      = ""
-benchmarker_name = ""
-app_name         = ""
+team_name = ""
 ```
 
 ### variables.tfのpublic_key_pathを書き換える
@@ -23,6 +21,8 @@ variable "public_key_path" {
   default = "<your_public_key_path>"
 }
 ```
+
+ここは`envs/*.tfvars`に書いてもいいです。
 
 ### terraformを実行する
 

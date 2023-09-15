@@ -10,7 +10,7 @@ terraform {
 resource "sakuracloud_server" "isucon11q" {
   count = 3
 
-  name = "${var.app_name}-s${count.index + 1}"
+  name = "${var.team_name}-s${count.index + 1}"
   zone = var.zone
 
   core   = 2
@@ -48,7 +48,7 @@ data "sakuracloud_archive" "ubuntu" {
 resource "sakuracloud_disk" "isucon11q" {
   count = 3
 
-  name = "${var.app_name}-s${count.index + 1}"
+  name = "${var.team_name}-s${count.index + 1}"
   zone = var.zone
 
   size              = 20

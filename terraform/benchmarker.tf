@@ -1,5 +1,5 @@
 resource "sakuracloud_server" "isucon11q-benchmarker" {
-  name = var.benchmarker_name
+  name = "${var.team_name}-bench"
   zone = var.zone
 
   core   = 4
@@ -27,7 +27,7 @@ resource "sakuracloud_server" "isucon11q-benchmarker" {
 }
 
 resource "sakuracloud_disk" "isucon11q-benchmarker" {
-  name = var.benchmarker_name
+  name = "${var.team_name}-bench"
   zone = var.zone
 
   size              = 20
