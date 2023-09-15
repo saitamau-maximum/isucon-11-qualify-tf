@@ -37,10 +37,11 @@ resource "sakuracloud_disk" "isucon11q-benchmarker" {
 data "http" "benchmarker-cloud-config-source" {
   url = "https://raw.githubusercontent.com/saitamau-maximum/isucon-11-qualify-tf/main/cloud-init/bench.cfg"
 }
+
 locals {
-  cloud-config = replace(data.http.cloud-config-source.body, "#cloud-config", "")
+  benchmarker-cloud-config = replace(data.http.benchmarker-cloud-config-source.body, "#cloud-config", "")
 }
 
-output "ip_address" {
+output "benchmarker_ip_address" {
   value = sakuracloud_server.isucon11q-benchmarker.ip_address
 }

@@ -64,5 +64,5 @@ locals {
 }
 
 output "ip_address" {
-  value = sakuracloud_server.isucon10q[*].ip_address
+  value = sakuracloud_server.isucon11q[*].ip_address
 }
