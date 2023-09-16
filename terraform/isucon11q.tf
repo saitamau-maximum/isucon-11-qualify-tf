@@ -8,21 +8,15 @@ terraform {
 }
 
 resource "sakuracloud_server" "isucon11q" {
-  count = 3
-
-  name = "${var.team_name}-s${count.index + 1}"
+  name = "${var.team_name}-app"
   zone = var.zone
 
-  core   = 2
-  memory = 4
-  disks  = [sakuracloud_disk.isucon11q[count.index].id]
+  core   = 4
+  memory = 8
+  disks  = [sakuracloud_disk.isucon11q.id]
 
   network_interface {
     upstream = "shared"
-  }
-
-  network_interface {
-    upstream = sakuracloud_switch.isucon11q-switch.id
   }
 
   user_data = join("\n", [
@@ -46,9 +40,7 @@ data "sakuracloud_archive" "ubuntu" {
 }
 
 resource "sakuracloud_disk" "isucon11q" {
-  count = 3
-
-  name = "${var.team_name}-s${count.index + 1}"
+  name = "${var.team_name}-app"
   zone = var.zone
 
   size              = 20
@@ -56,7 +48,7 @@ resource "sakuracloud_disk" "isucon11q" {
 }
 
 data "http" "cloud-config-source" {
-  url = "https://raw.githubusercontent.com/saitamau-maximum/isucon-11-qualify-tf/main/cloud-init/contestant.cfg"
+  url = "https://raw.githubusercontent.com/matsuu/cloud-init-isucon/main/isucon11q/isucon11q.cfg"
 }
 
 locals {
@@ -64,5 +56,5 @@ locals {
 }
 
 output "ip_address" {
-  value = sakuracloud_server.isucon11q[*].ip_address
+  value = sakuracloud_server.isucon11q.ip_address
 }
