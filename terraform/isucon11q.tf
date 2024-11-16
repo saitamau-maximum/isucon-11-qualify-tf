@@ -8,15 +8,20 @@ terraform {
 }
 
 resource "sakuracloud_server" "isucon11q" {
-  name = "${var.team_name}-app"
-  zone = var.zone
+  count = 3
+  name  = "${var.team_name}-s${count.index + 1}"
+  zone  = var.zone
 
-  core   = 4
-  memory = 8
-  disks  = [sakuracloud_disk.isucon11q.id]
+  core   = 2
+  memory = 4
+  disks  = [sakuracloud_disk.isucon11q[count.index].id]
 
   network_interface {
     upstream = "shared"
+  }
+
+  network_interface {
+    upstream = sakuracloud_switch.isucon11q-switch.id
   }
 
   user_data = join("\n", [
@@ -40,7 +45,9 @@ data "sakuracloud_archive" "ubuntu" {
 }
 
 resource "sakuracloud_disk" "isucon11q" {
-  name = "${var.team_name}-app"
+  count = 3
+
+  name = "${var.team_name}-s${count.index + 1}"
   zone = var.zone
 
   size              = 20
@@ -56,5 +63,5 @@ locals {
 }
 
 output "ip_address" {
-  value = sakuracloud_server.isucon11q.ip_address
+  value = sakuracloud_server.isucon11q[*].ip_address
 }
